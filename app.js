@@ -15,7 +15,8 @@ var template =
 </body> </html>`;
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/'); // <- Return the static template above
+    //res.send(template); // <- Return the static template above
+    res.sendFile(__dirname + '/');
 });
 app.get('/assets/css/main.css', function (req, res) {
     res.sendFile(__dirname + '/assets/css/main.css'); // <- Return the static template above
@@ -27,8 +28,16 @@ app.get('/assets/css/font-awesome.min.css', function (req, res) {
 
 app.get('/index.html', function (req, res) {
     res.sendFile(__dirname + '/index.html'); // <- Return the static template above
-
 });
+app.get('/data.html', function (req, res) {
+    res.sendFile(__dirname + '/data.html'); // <- Return the static template above
+});
+app.get('/maps.html', function (req, res) {
+    res.sendFile(__dirname + '/maps.html'); // <- Return the static template above
+});
+
+
+
 app.get('/assets/js/jquery.min.js', function (req, res) {
     res.sendFile(__dirname + '/assets/js/jquery.min.js'); // <- Return the static template above
 });
@@ -47,6 +56,9 @@ app.get('/assets/js/main.js', function (req, res) {
 
 app.get('/images/banner.mp4', function (req, res) {
     res.sendFile(__dirname + '/images/banner.mp4'); // <- Return the static template above
+});
+app.get('/images/banner.jpg', function (req, res) {
+    res.sendFile(__dirname + '/images/banner.jpg'); // <- Return the static template above
 });
 app.get('/images/bg.jpg', function (req, res) {
     res.sendFile(__dirname + '/assets/js/main.js'); // <- Return the static template above
