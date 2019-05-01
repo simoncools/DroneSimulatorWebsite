@@ -18,14 +18,6 @@ app.get('/', function (req, res) {
     //res.send(template); // <- Return the static template above
     res.sendFile(__dirname + '/');
 });
-app.get('/assets/css/main.css', function (req, res) {
-    res.sendFile(__dirname + '/assets/css/main.css'); // <- Return the static template above
-});
-app.get('/assets/css/font-awesome.min.css', function (req, res) {
-    res.sendFile(__dirname + '/assets/css/font-awesome.min.css'); // <- Return the static template above
-});
-
-
 app.get('/index.html', function (req, res) {
     res.sendFile(__dirname + '/index.html'); // <- Return the static template above
 });
@@ -36,7 +28,12 @@ app.get('/maps.html', function (req, res) {
     res.sendFile(__dirname + '/maps.html'); // <- Return the static template above
 });
 
-
+app.get('/assets/css/main.css', function (req, res) {
+    res.sendFile(__dirname + '/assets/css/main.css'); // <- Return the static template above
+});
+app.get('/assets/css/font-awesome.min.css', function (req, res) {
+    res.sendFile(__dirname + '/assets/css/font-awesome.min.css'); // <- Return the static template above
+});
 
 app.get('/assets/js/jquery.min.js', function (req, res) {
     res.sendFile(__dirname + '/assets/js/jquery.min.js'); // <- Return the static template above
@@ -52,6 +49,25 @@ app.get('/assets/js/util.js', function (req, res) {
 });
 app.get('/assets/js/main.js', function (req, res) {
     res.sendFile(__dirname + '/assets/js/main.js'); // <- Return the static template above
+});
+
+app.get('/assets/fonts/FontAwesome.otf', function (req, res) {
+    res.sendFile(__dirname + '/assets/fonts/FontAwesome.otf'); // <- Return the static template above
+});
+app.get('/assets/fonts/fontawesome-webfont.eot', function (req, res) {
+    res.sendFile(__dirname + '/assets/fonts/fontawesome-webfont.eot'); // <- Return the static template above
+});
+app.get('/assets/fonts/fontawesome-webfont.svg', function (req, res) {
+    res.sendFile(__dirname + '/assets/fonts/fontawesome-webfont.svg'); // <- Return the static template above
+});
+app.get('/assets/fonts/fontawesome-webfont.ttf', function (req, res) {
+    res.sendFile(__dirname + '/assets/fonts/fontawesome-webfont.ttf'); // <- Return the static template above
+});
+app.get('/assets/fonts/fontawesome-webfont.woff', function (req, res) {
+    res.sendFile(__dirname + '/assets/fonts/fontawesome-webfont.woff'); // <- Return the static template above
+});
+app.get('/assets/fonts/fontawesome-webfont.woff2', function (req, res) {
+    res.sendFile(__dirname + '/assets/fonts/fontawesome-webfont.woff2'); // <- Return the static template above
 });
 
 app.get('/images/banner.mp4', function (req, res) {
@@ -91,10 +107,14 @@ app.get('/events/', function (req, res) {
 
 setInterval(function () {
     var msg = Math.random();
-    console.log("Clients: " + Object.keys(clients) + " <- " + msg);
-    for (clientId in clients) {
-        clients[clientId].write("data: " + msg + "\n\n"); // <- Push a message to a single attached client
-    };
+    sendData(msg);
 }, 2000);
+
+function sendData(data){
+    console.log("Clients: " + Object.keys(clients) + " <- " + data);
+    for (clientId in clients) {
+        clients[clientId].write("data: " + data + "\n\n"); // <- Push a message to a single attached client
+    };
+}
 
 app.listen(process.env.PORT || 8080);
