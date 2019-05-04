@@ -3,16 +3,8 @@ var app = express();
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
-
-var template =
-    `<!DOCTYPE html> <html> <body>
-	<script type="text/javascript">
-		var source = new EventSource("/events/");
-		source.onmessage = function(e) {
-			document.body.innerHTML += e.data + "<br>";
-		};
-	</script>
-</body> </html>`;
+var net = require('net');
+var tcpClient = new net.Socket();
 
 app.get('/', function (req, res) {
     //res.send(template); // <- Return the static template above
@@ -105,10 +97,14 @@ app.get('/events/', function (req, res) {
     })(++clientId)
 });
 
-setInterval(function () {
+
+
+
+/*setInterval(function () {
     var msg = Math.random();
     sendData(msg);
-}, 2000);
+    //tcpClient.write(msg)
+}, 2000);*/
 
 function sendData(data){
     console.log("Clients: " + Object.keys(clients) + " <- " + data);
@@ -118,3 +114,36 @@ function sendData(data){
 }
 
 app.listen(process.env.PORT || 8080);
+
+var io = require('socket.io-client');
+var socket = io.connect('http://localhost:1337', {reconnect: true});
+
+socket.on('connect', function(){console.log('Connected');});
+socket.on('event', function(data){console.log(data);});
+socket.on('disconnect', function(){console.log('disconnected');});
+/*
+tcpClient.setTimeout(1000 * 60 * 300);
+
+tcpClient.allowHalfOpen = true;
+tcpClient.keepalive(true,0);
+
+        tcpClient.connect(1337, '127.0.0.1', function () {
+            console.log('Connected');
+            tcpClient.write('Hello, server! Love, Client.');
+              tcpClient.write('2');
+        });
+
+    tcpClient.on('data', function (data) {
+        console.log('Received: ' + data);
+        //sendData(data)
+    });
+
+    tcpClient.on('close', function (haderror) {
+        console.log('Connection closed');
+        console.log('becaus of ' + haderror);
+    });
+
+    tcpClient.on('error', function (err) {
+        console.log(err)
+        tcpClient.destroy();
+    });*/
