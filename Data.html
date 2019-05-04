@@ -13,7 +13,7 @@
 		<meta name="keywords" content="" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
-	<body class="is-preload">
+	<img class="is-preload">
 
 		<!-- Header -->
 			<header id="header">
@@ -34,13 +34,18 @@
 
 		<!-- Heading -->
 			<div id="heading" >
-				<h1>Elements</h1>
+				<h1>Drone data</h1>
 			</div>
+
 
 		<!-- Main -->
 			<section id="main" class="wrapper">
 				<div class="inner">
 					<div class="content">
+
+						<div id="container">
+							<div id="droneAnimation"><img src="/images/drone.png" alt="Italian trulli"></imgid></div>
+						</div>
 
 					<!-- Elements -->
 						<div class="row">
@@ -438,9 +443,31 @@
 		<script type="text/javascript">
 			var source = new EventSource("/events/");
 			source.onmessage = function(e) {
-				document.body.innerHTML += e.data + "<br>";
-			};
-		</script>
+				//document.body.innerHTML += e.data + "<br>";
+				myMove('droneAnimation',e.data);
 
+			};
+
+			var prevAngle = 0;
+			function myMove(imageName,angle){
+				prevAngle = parseInt(angle);
+				img = document.getElementById(imageName);
+				img.setAttribute('style','transform: rotate('+angle+'deg)');
+			}
+		</script>
+	<style>
+		#container{
+			width: 450px;
+			height: 450px;
+			position: relative;
+			left: 50%;
+			margin-left: -225px;
+		}
+		#droneAnimation{ /*size is 430*160*/
+			position: absolute;
+			top: 140px;
+			left: 10px;
+		}
+	</style>
 	</body>
 </html>

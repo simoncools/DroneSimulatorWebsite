@@ -79,9 +79,10 @@ app.get('/images/banner.jpg', function (req, res) {
 app.get('/images/bg.jpg', function (req, res) {
     res.sendFile(__dirname + '/assets/js/main.js'); // <- Return the static template above
 });
-app.get('/assets/js/main.js', function (req, res) {
-    res.sendFile(__dirname + '/assets/js/main.js'); // <- Return the static template above
+app.get('/images/drone.png', function (req, res) {
+    res.sendFile(__dirname + '/images/drone.png'); // <- Return the static template above
 });
+
 
 
 
@@ -106,9 +107,9 @@ app.get('/events/', function (req, res) {
 });
 
 setInterval(function () {
-    var msg = Math.random();
+    var msg = (Math.random()-0.5)*100;
     sendData(msg);
-}, 2000);
+}, 200);
 
 function sendData(data){
     console.log("Clients: " + Object.keys(clients) + " <- " + data);
