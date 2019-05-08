@@ -71,9 +71,10 @@ app.get('/images/banner.jpg', function (req, res) {
 app.get('/images/bg.jpg', function (req, res) {
     res.sendFile(__dirname + '/assets/js/main.js'); // <- Return the static template above
 });
-app.get('/assets/js/main.js', function (req, res) {
-    res.sendFile(__dirname + '/assets/js/main.js'); // <- Return the static template above
+app.get('/images/drone.png', function (req, res) {
+    res.sendFile(__dirname + '/images/drone.png'); // <- Return the static template above
 });
+
 
 
 
@@ -115,35 +116,54 @@ function sendData(data){
 
 app.listen(process.env.PORT || 8080);
 
-var io = require('socket.io-client');
-var socket = io.connect('http://localhost:1337', {reconnect: true});
 
-socket.on('connect', function(){console.log('Connected');});
-socket.on('event', function(data){console.log(data);});
-socket.on('disconnect', function(){console.log('disconnected');});
+var net = require('net');
+
+var client = new net.Socket();
+client.connect(15556, '192.168.1.28', function() {
+    console.log('Connected');
+    client.write('Hello, server! Love, Client.');
+});
+
+client.on('data', function(data) {
+    console.log('Received: ' + data);
+    if(data=='kill'){
+        client.destroy(); // kill client after server's response
+    }
+});
+
+client.on('close', function() {
+    console.log('Connection closed');
+});
+
+
+
+
 /*
-tcpClient.setTimeout(1000 * 60 * 300);
+var net = require('net');
+const server = net.createServer();
+server.listen(7070,'127.0.0.1', () => {
+    console.log('TCP Server is running on port ' + 7070 +'.');
+});
+let sockets = [];
 
-tcpClient.allowHalfOpen = true;
-tcpClient.keepalive(true,0);
-
-        tcpClient.connect(1337, '127.0.0.1', function () {
-            console.log('Connected');
-            tcpClient.write('Hello, server! Love, Client.');
-              tcpClient.write('2');
+server.on('connection', function(sock) {
+    console.log('CONNECTED: ' + sock.remoteAddress + ':' + sock.remotePort);
+    sockets.push(sock);
+    sock.write("CONNECTED: " + sock.remoteAddress + ":" + sock.remotePort)
+    sock.on('data', function(data) {
+        console.log('DATA ' + sock.remoteAddress + ': ' + data);
+        // Write the data back to all the connected, the client will receive it as data from the server
+        sockets.forEach(function(sock, index, array) {
+            sock.write(sock.remoteAddress + ':' + sock.remotePort + " said " + data + '\n');
         });
-
-    tcpClient.on('data', function (data) {
-        console.log('Received: ' + data);
-        //sendData(data)
     });
 
-    tcpClient.on('close', function (haderror) {
-        console.log('Connection closed');
-        console.log('becaus of ' + haderror);
+    sock.on('close', function(data) {
+        let index = sockets.findIndex(function(o) {
+            return o.remoteAddress === sock.remoteAddress && o.remotePort === sock.remotePort;
+        })
+        if (index !== -1) sockets.splice(index, 1);
+        console.log('CLOSED: ' + sock.remoteAddress + ' ' + sock.remotePort);
     });
-
-    tcpClient.on('error', function (err) {
-        console.log(err)
-        tcpClient.destroy();
-    });*/
+});*/
