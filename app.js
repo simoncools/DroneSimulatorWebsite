@@ -66,9 +66,13 @@ app.get('/images/banner.jpg', function (req, res) {
 app.get('/images/bg.jpg', function (req, res) {
     res.sendFile(__dirname + '/assets/js/main.js'); // <- Return the static template above
 });
-app.get('/images/drone.png', function (req, res) {
-    res.sendFile(__dirname + '/images/drone.png'); // <- Return the static template above
+app.get('/images/droneFront.png', function (req, res) {
+    res.sendFile(__dirname + '/images/droneFront.png'); // <- Return the static template above
 });
+app.get('/images/droneSide.png', function (req, res) {
+    res.sendFile(__dirname + '/images/droneSide.png'); // <- Return the static template above
+});
+
 
 
 
@@ -92,7 +96,13 @@ app.get('/events/', function (req, res) {
         }); // <- Remove this client when he disconnects
     })(++clientId)
 });
-
+/*
+//to create dummy data
+setInterval(function () {
+    var msg = (Math.random()*50)-25;
+    var msg1 = (Math.random()*50)-25;
+    sendData(msg+" "+msg1);
+}, 2000);*/
 
 function sendData(data){
     console.log("Clients: " + Object.keys(clients) + " <- " + data);
@@ -112,12 +122,8 @@ client.connect(1337, '127.0.0.1', function() {
 });
 
 client.on('data', function(data) {
-    var myData = data + '';
-    var xy = myData.split(" ");
-    var x = xy[0].replace("X","");
-    var y = xy[1].replace("Y","");
-    console.log(x);
-    sendData(x);
+    console.log(data);
+    sendData(data);
     if(data=='kill'){
         client.destroy(); // kill client after server's response
     }
