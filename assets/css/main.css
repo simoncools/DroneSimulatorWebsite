@@ -38,7 +38,7 @@ pre, a, abbr, acronym, address, big, cite,
 code, del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var, b,
 u, i, center, dl, dt, dd, ol, ul, li, fieldset,
-form, label, legend, table, caption, tbody,
+form, label, legend, caption, tbody,
 tfoot, thead, tr, th, td, article, aside,
 canvas, details, embed, figure, figcaption,
 footer, header, hgroup, menu, nav, output, ruby,
@@ -65,10 +65,10 @@ blockquote, q {
   blockquote:before, blockquote:after, q:before, q:after {
     content: '';
     content: none; }
-
+/*
 table {
   border-collapse: collapse;
-  border-spacing: 0; }
+  border-spacing: 0; }*/
 
 body {
   -webkit-text-size-adjust: none; }
@@ -607,7 +607,7 @@ ul.alt li {
   border-top-color: rgba(0, 0, 0, 0.25); }
 
 /* Table */
-.table-wrapper {
+/*.table-wrapper {
   -webkit-overflow-scrolling: touch;
   overflow-x: auto; }
 
@@ -655,7 +655,7 @@ table thead {
 table tfoot {
   border-top-color: rgba(0, 0, 0, 0.25); }
 table.alt tbody tr td {
-  border-color: rgba(0, 0, 0, 0.25); }
+  border-color: rgba(0, 0, 0, 0.25); }*/
 
 /* Highlights */
 .highlights {

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<!--
+	Industrious by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+<head>
+    <title>Drone data 3D - EE5 drone simulator 2</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<img class="is-preload">
+
+<!-- Header -->
+<header id="header">
+    <a class="logo" href="index.html">Industrious</a>
+    <nav>
+        <a href="#menu">Menu</a>
+    </nav>
+</header>
+
+<!-- Nav -->
+<nav id="menu">
+    <ul class="links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="data.html">Drone data 2D</a></li>
+        <li><a href="data3D.html">Drone data 3D</a></li>
+        <li><a href="maps.html">Drone location</a></li>
+    </ul>
+</nav>
+
+<!-- Heading -->
+<div id="heading" >
+    <h1>Drone data</h1>
+</div>
+
+
+<!-- Main -->
+<section id="main" class="wrapper">
+    <div class="inner">
+        <div class="content">
+
+            <h2>Drone animations</h2>
+
+
+
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script type="text/javascript">
+    var source = new EventSource("/events/");
+    source.onmessage = function(e) {
+        //document.body.innerHTML += e.data + "<br>";
+        var myData = e.data + '';
+        var xy = myData.split(" ");
+        var x = xy[0];
+        var y = xy[1];
+        /*
+        myMove('droneFrontAnimation',x);
+        myMove('droneSideAnimation',y);
+        document.getElementById('motor1').innerHTML = xy[2]+"%";
+        document.getElementById('motor2').innerHTML = xy[3]+"%";
+        document.getElementById('motor3').innerHTML = xy[4]+"%";
+        document.getElementById('motor4').innerHTML = xy[5]+"%";*/
+
+    };
+
+    var prevAngle = 0;
+    function myMove(imageName,angle){
+        prevAngle = parseInt(angle);
+        img = document.getElementById(imageName);
+        img.setAttribute('style','transform: rotate('+angle+'deg)');
+    }
+</script>
+
+</body>
+</html>

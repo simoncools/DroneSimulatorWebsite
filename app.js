@@ -11,6 +11,9 @@ app.get('/index.html', function (req, res) {
 app.get('/data.html', function (req, res) {
     res.sendFile(__dirname + '/data.html'); // <- Return the static template above
 });
+app.get('/data3D.html', function (req, res) {
+    res.sendFile(__dirname + '/data3D.html'); // <- Return the static template above
+});
 app.get('/maps.html', function (req, res) {
     res.sendFile(__dirname + '/maps.html'); // <- Return the static template above
 });
@@ -72,6 +75,9 @@ app.get('/images/droneFront.png', function (req, res) {
 app.get('/images/droneSide.png', function (req, res) {
     res.sendFile(__dirname + '/images/droneSide.png'); // <- Return the static template above
 });
+app.get('/images/droneTop.png', function (req, res) {
+    res.sendFile(__dirname + '/images/droneTop.png'); // <- Return the static template above
+});
 
 
 
@@ -96,13 +102,13 @@ app.get('/events/', function (req, res) {
         }); // <- Remove this client when he disconnects
     })(++clientId)
 });
-/*
+
 //to create dummy data
 setInterval(function () {
     var msg = (Math.random()*50)-25;
     var msg1 = (Math.random()*50)-25;
-    sendData(msg+" "+msg1);
-}, 2000);*/
+    sendData(msg+" "+msg1 +" 100 200 300 400");
+}, 2000);
 
 function sendData(data){
     console.log("Clients: " + Object.keys(clients) + " <- " + data);
@@ -113,7 +119,7 @@ function sendData(data){
 
 app.listen(process.env.PORT || 8080);
 
-
+/*
 var net = require('net');
 
 var client = new net.Socket();
@@ -131,4 +137,4 @@ client.on('data', function(data) {
 
 client.on('close', function() {
     console.log('Connection closed');
-});
+});*/

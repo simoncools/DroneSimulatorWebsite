@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Elements - EE5 drone simulator 2</title>
+		<title>Drone data 2D - EE5 drone simulator 2</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<meta name="description" content="" />
@@ -27,7 +27,8 @@
 			<nav id="menu">
 				<ul class="links">
 					<li><a href="index.html">Home</a></li>
-					<li><a href="data.html">Drone data</a></li>
+					<li><a href="data.html">Drone data 2D</a></li>
+					<li><a href="data3D.html">Drone data 3D</a></li>
 					<li><a href="maps.html">Drone location</a></li>
 				</ul>
 			</nav>
@@ -46,19 +47,34 @@
 						<h2>Drone animations</h2>
 						<div flex id="containerSide">
 							<h3>Side View</h3>
-							<div id="droneSideAnimation"><img src="/images/droneSide.png" alt="Italian trulli"></imgid></div>
+							<div id="droneSideAnimation"><img src="/images/droneSide.png" alt="Drone Side"></imgid></div>
 						</div>
 
 						<div  id="containerFront">
 							<h3>Front View</h3>
-							<div id="droneFrontAnimation"><img src="/images/droneFront.png" alt="Italian trulli"></imgid></div>
+							<div id="droneFrontAnimation"><img src="/images/droneFront.png" alt="Drone front"></imgid></div>
+						</div>
+
+						<div id="motorContainer">
+							<h2>Motor speed diagram</h2>
+							<div style="float: left; width: 20%"><h2> </h2></div>
+							<div style="float: left; width: 50%;"><h2 id="motor1"></h2></div>
+							<div style="float: left; width: 30%"><h2 id="motor2"></h2></div>
+							<center><img src="/images/droneTop.png" alt="Drone Top"></imgid></center>
+							<div style="float: left;width: 20%"><h2> </h2></div>
+							<div style="float: left; width: 50%"><h2 id="motor3"></h2></div>
+							<div style="float: left; width: 30%"><h2 id="motor4"></h2></div>
+							<h1></h1>
 						</div>
 
 
 
-							</div>
-						</div>
+
+
+
 					</div>
+				</div>
+				</div>
 				</div>
 			</section>
 
@@ -77,13 +93,13 @@
 				var xy = myData.split(" ");
 				var x = xy[0];
 				var y = xy[1];
-				var m1 =xy[2];
-				var m2 =xy[3];
-				var m3 =xy[4];
-				var m4 =xy[5];
 
 				myMove('droneFrontAnimation',x);
 				myMove('droneSideAnimation',y);
+				document.getElementById('motor1').innerHTML = xy[2]+"%";
+				document.getElementById('motor2').innerHTML = xy[3]+"%";
+				document.getElementById('motor3').innerHTML = xy[4]+"%";
+				document.getElementById('motor4').innerHTML = xy[5]+"%";
 
 			};
 
