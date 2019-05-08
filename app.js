@@ -1,10 +1,5 @@
 var express = require('express');
 var app = express();
-var http = require('http');
-var fs = require('fs');
-var path = require('path');
-var net = require('net');
-var tcpClient = new net.Socket();
 
 app.get('/', function (req, res) {
     //res.send(template); // <- Return the static template above
@@ -99,14 +94,6 @@ app.get('/events/', function (req, res) {
 });
 
 
-
-
-/*setInterval(function () {
-    var msg = Math.random();
-    sendData(msg);
-    //tcpClient.write(msg)
-}, 2000);*/
-
 function sendData(data){
     console.log("Clients: " + Object.keys(clients) + " <- " + data);
     for (clientId in clients) {
@@ -120,13 +107,17 @@ app.listen(process.env.PORT || 8080);
 var net = require('net');
 
 var client = new net.Socket();
-client.connect(15556, '192.168.1.28', function() {
+client.connect(1337, '127.0.0.1', function() {
     console.log('Connected');
-    client.write('Hello, server! Love, Client.');
 });
 
 client.on('data', function(data) {
-    console.log('Received: ' + data);
+    var myData = data + '';
+    var xy = myData.split(" ");
+    var x = xy[0].replace("X","");
+    var y = xy[1].replace("Y","");
+    console.log(x);
+    sendData(x);
     if(data=='kill'){
         client.destroy(); // kill client after server's response
     }
@@ -135,35 +126,3 @@ client.on('data', function(data) {
 client.on('close', function() {
     console.log('Connection closed');
 });
-
-
-
-
-/*
-var net = require('net');
-const server = net.createServer();
-server.listen(7070,'127.0.0.1', () => {
-    console.log('TCP Server is running on port ' + 7070 +'.');
-});
-let sockets = [];
-
-server.on('connection', function(sock) {
-    console.log('CONNECTED: ' + sock.remoteAddress + ':' + sock.remotePort);
-    sockets.push(sock);
-    sock.write("CONNECTED: " + sock.remoteAddress + ":" + sock.remotePort)
-    sock.on('data', function(data) {
-        console.log('DATA ' + sock.remoteAddress + ': ' + data);
-        // Write the data back to all the connected, the client will receive it as data from the server
-        sockets.forEach(function(sock, index, array) {
-            sock.write(sock.remoteAddress + ':' + sock.remotePort + " said " + data + '\n');
-        });
-    });
-
-    sock.on('close', function(data) {
-        let index = sockets.findIndex(function(o) {
-            return o.remoteAddress === sock.remoteAddress && o.remotePort === sock.remotePort;
-        })
-        if (index !== -1) sockets.splice(index, 1);
-        console.log('CLOSED: ' + sock.remoteAddress + ' ' + sock.remotePort);
-    });
-});*/
