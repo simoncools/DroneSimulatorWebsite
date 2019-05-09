@@ -45,9 +45,9 @@
         <div class="content">
 
             <h2>Drone animations</h2>
-
-
-
+            <div style="height: 40rem;">
+            <div id="stl_cont" style="width:100%;height:80%;margin:0 auto;"></div>
+            </div>
         </div>
     </div>
     </div>
@@ -61,21 +61,22 @@
 <script src="assets/js/breakpoints.min.js"></script>
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="stl_viewer.min.js"></script>
 <script type="text/javascript">
     var source = new EventSource("/events/");
+    var stl_viewer=new StlViewer(document.getElementById("stl_cont"), { mouse_zoom:false,models: [ {id:0, filename:"/assets/DroneKeychain_.stl"} ] });
+   var currentX=0;
+   var currentY=0;
     source.onmessage = function(e) {
         //document.body.innerHTML += e.data + "<br>";
         var myData = e.data + '';
         var xy = myData.split(" ");
         var x = xy[0];
         var y = xy[1];
-        /*
-        myMove('droneFrontAnimation',x);
-        myMove('droneSideAnimation',y);
-        document.getElementById('motor1').innerHTML = xy[2]+"%";
-        document.getElementById('motor2').innerHTML = xy[3]+"%";
-        document.getElementById('motor3').innerHTML = xy[4]+"%";
-        document.getElementById('motor4').innerHTML = xy[5]+"%";*/
+
+        move3d((x-currentX),y-currentY);
+        currentX=x;
+        currentY=y;
 
     };
 
@@ -85,7 +86,21 @@
         img = document.getElementById(imageName);
         img.setAttribute('style','transform: rotate('+angle+'deg)');
     }
+
+    function move3d(anglex,angley){
+        anglex = anglex*0.01745329251994;
+        angley = angley*0.01745329251994;
+        stl_viewer.rotate(0,anglex,angley,0);
+    }
 </script>
+<style>
+    #container3D{
+
+    }
+    #pic{
+        border: 5px solid grey;
+    }
+</style>
 
 </body>
 </html>

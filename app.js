@@ -25,6 +25,38 @@ app.get('/assets/css/font-awesome.min.css', function (req, res) {
     res.sendFile(__dirname + '/assets/css/font-awesome.min.css'); // <- Return the static template above
 });
 
+app.get('/assets/DroneKeychain_.stl', function (req, res) {
+    res.sendFile(__dirname + '/assets/DroneKeychain_.stl'); // <- Return the static template above
+});
+app.get('/stl_viewer.min.js', function (req, res) {
+    res.sendFile(__dirname + '/stl_viewer.min.js'); // <- Return the static template above
+});
+app.get('/three_viewer.min.js', function (req, res) {
+    res.sendFile(__dirname + '/three_viewer.min.js'); // <- Return the static template above
+});
+app.get('/three.min.js', function (req, res) {
+    res.sendFile(__dirname + '/three.min.js'); // <- Return the static template above
+});
+app.get('/webgl_detector.js', function (req, res) {
+    res.sendFile(__dirname + '/webgl_detector.js'); // <- Return the static template above
+});
+app.get('/projector.js', function (req, res) {
+    res.sendFile(__dirname + '/projector.js'); // <- Return the static template above
+});
+app.get('/parser.min.js', function (req, res) {
+    res.sendFile(__dirname + '/parser.min.js'); // <- Return the static template above
+});
+app.get('/CanvasRenderer.js', function (req, res) {
+    res.sendFile(__dirname + '/CanvasRenderer.js'); // <- Return the static template above
+});
+app.get('/OrbitControls.js', function (req, res) {
+    res.sendFile(__dirname + '/OrbitControls.js'); // <- Return the static template above
+});
+app.get('/load_stl.min.js', function (req, res) {
+    res.sendFile(__dirname + '/load_stl.min.js'); // <- Return the static template above
+});
+
+
 app.get('/assets/js/jquery.min.js', function (req, res) {
     res.sendFile(__dirname + '/assets/js/jquery.min.js'); // <- Return the static template above
 });
@@ -39,6 +71,12 @@ app.get('/assets/js/util.js', function (req, res) {
 });
 app.get('/assets/js/main.js', function (req, res) {
     res.sendFile(__dirname + '/assets/js/main.js'); // <- Return the static template above
+});
+app.get('/assets/js/index.js', function (req, res) {
+    res.sendFile(__dirname + '/assets/js/index.js'); // <- Return the static template above
+});
+app.get('/node_modules/styled-components/dist/styled-components.js', function (req, res) {
+    res.sendFile(__dirname + '/node_modules/styled-components/dist/styled-components.js'); // <- Return the static template above
 });
 
 app.get('/assets/fonts/FontAwesome.otf', function (req, res) {
@@ -78,6 +116,12 @@ app.get('/images/droneSide.png', function (req, res) {
 app.get('/images/droneTop.png', function (req, res) {
     res.sendFile(__dirname + '/images/droneTop.png'); // <- Return the static template above
 });
+app.get('/images/drone3D.png', function (req, res) {
+    res.sendFile(__dirname + '/images/drone3D.png'); // <- Return the static template above
+});
+app.get('/images/drone3D.jpg', function (req, res) {
+    res.sendFile(__dirname + '/images/drone3D.jpg'); // <- Return the static template above
+});
 
 
 
@@ -102,13 +146,13 @@ app.get('/events/', function (req, res) {
         }); // <- Remove this client when he disconnects
     })(++clientId)
 });
-
+/*
 //to create dummy data
 setInterval(function () {
     var msg = (Math.random()*50)-25;
     var msg1 = (Math.random()*50)-25;
     sendData(msg+" "+msg1 +" 100 200 300 400");
-}, 2000);
+}, 2000);*/
 
 function sendData(data){
     console.log("Clients: " + Object.keys(clients) + " <- " + data);
@@ -119,16 +163,21 @@ function sendData(data){
 
 app.listen(process.env.PORT || 8080);
 
-/*
 var net = require('net');
 
 var client = new net.Socket();
-client.connect(1337, '127.0.0.1', function() {
+
+function tryConnect(){
+    client.connect(1337, '127.0.0.1');
+}
+
+client.on('connect', function(){
     console.log('Connected');
 });
 
+tryConnect();
+
 client.on('data', function(data) {
-    console.log(data);
     sendData(data);
     if(data=='kill'){
         client.destroy(); // kill client after server's response
@@ -136,5 +185,10 @@ client.on('data', function(data) {
 });
 
 client.on('close', function() {
-    console.log('Connection closed');
-});*/
+    console.log('Retrying to connect');
+    setTimeout(tryConnect,5000);
+});
+
+client.on('error', function(e) {
+    console.log('Cannot connect to server');
+});

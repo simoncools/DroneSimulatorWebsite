@@ -1,0 +1,7 @@
+{
+  "name": "DroneSimulatorWebsite",
+  "version": "1.0.0",
+  "dependencies": {
+    "styled-components": "latest"
+  }
+}
