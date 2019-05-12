@@ -64,6 +64,7 @@
 <script src="stl_viewer.min.js"></script>
 <script type="text/javascript">
     var source = new EventSource("/events/");
+    //see https://www.viewstl.com/plugin/
     var stl_viewer=new StlViewer(document.getElementById("stl_cont"), { mouse_zoom:false,models: [ {id:0, filename:"/assets/DroneKeychain_.stl"} ] });
    var currentX=0;
    var currentY=0;
