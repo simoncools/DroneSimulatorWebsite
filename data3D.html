@@ -48,6 +48,19 @@
             <div style="height: 40rem;">
             <div id="stl_cont" style="width:100%;height:80%;margin:0 auto;"></div>
             </div>
+            <div>
+                <h4 >replays</h4>
+                <ul class="actions fit">
+                    <li>
+                        <select>
+                            <option value="0">Select car:</option>
+                            <option value="1">Audi</option>
+                            <option value="2">BMW</option>
+                        </select>
+                    </li>
+                    <li><a onclick="startReplay()" class="button fit">Drone data</a></li>
+                </ul>
+            </div>
         </div>
     </div>
     </div>
@@ -93,6 +106,12 @@
         angley = angley*0.01745329251994;
         stl_viewer.rotate(0,anglex,angley,0);
     }
+
+    function startReplay() {
+
+    }
+
+
 </script>
 <style>
     #container3D{
