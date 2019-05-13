@@ -40,8 +40,8 @@ app.get('/three.min.js', function (req, res) {
 app.get('/webgl_detector.js', function (req, res) {
     res.sendFile(__dirname + '/webgl_detector.js'); // <- Return the static template above
 });
-app.get('/projector.js', function (req, res) {
-    res.sendFile(__dirname + '/projector.js'); // <- Return the static template above
+app.get('/Projector.js', function (req, res) {
+    res.sendFile(__dirname + '/Projector.js'); // <- Return the static template above
 });
 app.get('/parser.min.js', function (req, res) {
     res.sendFile(__dirname + '/parser.min.js'); // <- Return the static template above
