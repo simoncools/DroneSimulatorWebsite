@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var net = require('net');
+var client = new net.Socket();
 
 app.get('/', function (req, res) {
     //res.send(template); // <- Return the static template above
@@ -17,6 +19,15 @@ app.get('/data3D.html', function (req, res) {
 app.get('/maps.html', function (req, res) {
     res.sendFile(__dirname + '/maps.html'); // <- Return the static template above
 });
+app.get('/replay.js', function (req, res) {
+   if(client!=null) {
+       if (client.connected) {
+           client.write("replay");
+           console.log("start replay");
+       }
+   }
+});
+
 
 app.get('/assets/css/main.css', function (req, res) {
     res.sendFile(__dirname + '/assets/css/main.css'); // <- Return the static template above
