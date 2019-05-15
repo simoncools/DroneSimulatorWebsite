@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var net = require('net');
 var client = new net.Socket();
+var connected = false;
 
 app.get('/', function (req, res) {
     //res.send(template); // <- Return the static template above
@@ -20,12 +21,12 @@ app.get('/maps.html', function (req, res) {
     res.sendFile(__dirname + '/maps.html'); // <- Return the static template above
 });
 app.get('/replay.js', function (req, res) {
-   if(client!=null) {
-       if (client.connected) {
+       if (connected) {
            client.write("replay");
            console.log("start replay");
+           res.send("succes");
        }
-   }
+    res.send("fail");
 });
 
 
@@ -184,6 +185,8 @@ function tryConnect(){
 
 client.on('connect', function(){
     console.log('Connected');
+    connected=true;
+
 });
 
 tryConnect();
@@ -197,6 +200,7 @@ client.on('data', function(data) {
 
 client.on('close', function() {
     console.log('Retrying to connect');
+    connected=false;
     setTimeout(tryConnect,5000);
 });
 
