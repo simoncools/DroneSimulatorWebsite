@@ -3,7 +3,6 @@ var app = express();
 var net = require('net');
 var client = new net.Socket();
 var connected = false;
-
 app.get('/', function (req, res) {
     //res.send(template); // <- Return the static template above
     res.sendFile(__dirname + '/');
@@ -21,12 +20,12 @@ app.get('/maps.html', function (req, res) {
     res.sendFile(__dirname + '/maps.html'); // <- Return the static template above
 });
 app.get('/replay.js', function (req, res) {
-       if (connected) {
-           client.write("replay");
-           console.log("start replay");
-           res.send("succes");
-       }
-    res.send("fail");
+    console.log("replay called");
+    if (connected) {
+        client.write("replay");
+        console.log("start replay");
+    }
+    res.send('Lol yeet');
 });
 
 
@@ -184,9 +183,8 @@ function tryConnect(){
 }
 
 client.on('connect', function(){
+    connected = true;
     console.log('Connected');
-    connected=true;
-
 });
 
 tryConnect();
@@ -196,11 +194,13 @@ client.on('data', function(data) {
     if(data=='kill'){
         client.destroy(); // kill client after server's response
     }
+    console.log("Sending response")
+    client.write('k\n');
 });
 
 client.on('close', function() {
     console.log('Retrying to connect');
-    connected=false;
+    connected = false;
     setTimeout(tryConnect,5000);
 });
 
