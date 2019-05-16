@@ -12,6 +12,8 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" charset="utf-8" href="leaflet/leaflet.css" />
+		<script type="text/javascript" charset="utf-8" src="leaflet/leaflet.js"></script>
 	</head>
 	<body class="is-preload">
 
@@ -40,28 +42,43 @@
 						<header>
 							<h2>Drone location</h2>
 						</header>
-						<div id="map"></div>
-						</div>
+                        <div id="mapid" style="height: 500px"></div>
+                    </div>
+
+
 				</div>
 			</section>
 
 		<script>
-			// Initialize and add the map
-			function initMap() {
-				// The location of Uluru
-				var uluru = {lat: 50.874849, lng: 4.707815};
-				//50°52'29.6"N 4°42'27.9"E
-				// The map, centered at Uluru
-				var map = new google.maps.Map(
-						document.getElementById('map'), {zoom: 4, center: uluru});
-				// The marker, positioned at Uluru
-				var marker = new google.maps.Marker({position: uluru, map: map});
-			}
-		</script>
-		<script async defer
-				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7-1Izg57IyMwAhI0UkKbOpt8N9Fu00Zk&callback=initMap">
-		</script>
 
+			var lat = 0;
+			var long = 0;
+			var source = new EventSource("/events/");
+			var mymap = L.map('mapid').setView([50.836360, 4.334862], 11);
+			L.tileLayer('4uMaps/{z}/{x}/{y}.png',
+					{  minZoom:9,  maxZoom: 11  }).addTo(mymap);
+			var marker = L.marker([50.836360, 4.334862]).addTo(mymap)
+			marker.bindPopup("<b>location unknown</b>").openPopup();
+			source.onmessage = function(e) {
+				//document.body.innerHTML += e.data + "<br>";
+				var myData = e.data + '';
+				var xy = myData.split(" ");
+				lat = parseFloat(xy[6]);
+				long = parseFloat(xy[7]);
+				if(lat!=0) {
+					mymap.setView([lat,long],11);
+					marker.remove();
+					marker = L.marker([lat, long]).addTo(mymap)
+					marker.bindPopup("<b>current location</b><br>lat:" + lat + " long:" + long).openPopup();
+				}else{
+					mymap.setView([50.836360, 4.334862], 11);
+					marker.remove();
+					marker = L.marker([50.836360, 4.334862]).addTo(mymap)
+					marker.bindPopup("<b>location unknown</b>").openPopup();
+				}
+			};
+			// Initialize and add the map
+		</script>
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>

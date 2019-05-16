@@ -50,16 +50,7 @@
             </div>
             <div>
                 <h4 >replays</h4>
-                <ul class="actions fit">
-                    <li>
-                        <select>
-                            <option value="0">Select car:</option>
-                            <option value="1">Audi</option>
-                            <option value="2">BMW</option>
-                        </select>
-                    </li>
-                    <li><a onclick="startReplay()" class="button fit">Drone data</a></li>
-                </ul>
+                    <a onclick="startReplay()" class="button fit">Start replay</a>
             </div>
         </div>
     </div>
@@ -109,7 +100,7 @@
 
     function startReplay() {
         const Http = new XMLHttpRequest();
-        const url="replay.js";
+        const url="replay/replay"+Math.random();
         Http.open("GET", url);
         Http.send();
         Http.onreadystatechange=(e)=>{

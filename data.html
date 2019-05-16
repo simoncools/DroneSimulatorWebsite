@@ -68,7 +68,8 @@
 						</div>
 
 
-
+						<h4 >replays</h4>
+						<a onclick="startReplay()" class="button fit">Start replay</a>
 
 
 
@@ -108,6 +109,16 @@
 				prevAngle = parseInt(angle);
 				img = document.getElementById(imageName);
 				img.setAttribute('style','transform: rotate('+angle+'deg)');
+			}
+
+			function startReplay() {
+				const Http = new XMLHttpRequest();
+				const url="replay/replay"+Math.random();
+				Http.open("GET", url);
+				Http.send();
+				Http.onreadystatechange=(e)=>{
+					console.log(Http.responseText)
+				}
 			}
 		</script>
 	<style>

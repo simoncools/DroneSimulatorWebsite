@@ -4,138 +4,54 @@ var net = require('net');
 var client = new net.Socket();
 var connected = false;
 app.get('/', function (req, res) {
-    //res.send(template); // <- Return the static template above
     res.sendFile(__dirname + '/');
 });
-app.get('/index.html', function (req, res) {
-    res.sendFile(__dirname + '/index.html'); // <- Return the static template above
+app.get('/:index', function (req, res) {
+    var index = req.params.index;
+    res.sendFile(__dirname + '/'+index);
 });
-app.get('/data.html', function (req, res) {
-    res.sendFile(__dirname + '/data.html'); // <- Return the static template above
+app.get('/assets/:index', function (req, res) {
+    var index = req.params.index;
+    res.sendFile(__dirname + '/assets/'+index);
 });
-app.get('/data3D.html', function (req, res) {
-    res.sendFile(__dirname + '/data3D.html'); // <- Return the static template above
+app.get('/assets/css/:index', function (req, res) {
+    var index = req.params.index;
+    res.sendFile(__dirname + '/assets/css/'+index);
 });
-app.get('/maps.html', function (req, res) {
-    res.sendFile(__dirname + '/maps.html'); // <- Return the static template above
+app.get('/leaflet/:index', function (req, res) {
+    var index = req.params.index;
+    res.sendFile(__dirname + '/leaflet/'+index);
 });
-app.get('/replay.js', function (req, res) {
+app.get('/leaflet/images/:index', function (req, res) {
+    var index = req.params.index;
+    res.sendFile(__dirname + '/leaflet/images/'+index);
+});
+app.get('/4uMaps/:z/:x/:y',function (req,res) {
+    var x = req.params.x;
+    var y = req.params.y;
+    var z = req.params.z;
+    res.sendFile(__dirname + '/4uMaps/'+z+'/'+x+'/'+y);
+});
+app.get('/assets/js/:index', function (req, res) {
+    var index = req.params.index;
+    res.sendFile(__dirname + '/assets/js/'+index);
+});
+app.get('/assets/fonts/:index', function (req, res) {
+    var index = req.params.index;
+    res.sendFile(__dirname + '/assets/fonts/'+index);
+});
+app.get('/images/:index', function (req, res) {
+    var index = req.params.index;
+    res.sendFile(__dirname + '/images/' + index);
+});
+app.get('/replay/:option', function (req, res) {
     console.log("replay called");
     if (connected) {
-        client.write("replay");
+        client.write('replay/n');
         console.log("start replay");
     }
     res.send('Lol yeet');
 });
-
-
-app.get('/assets/css/main.css', function (req, res) {
-    res.sendFile(__dirname + '/assets/css/main.css'); // <- Return the static template above
-});
-app.get('/assets/css/font-awesome.min.css', function (req, res) {
-    res.sendFile(__dirname + '/assets/css/font-awesome.min.css'); // <- Return the static template above
-});
-
-app.get('/assets/DroneKeychain_.stl', function (req, res) {
-    res.sendFile(__dirname + '/assets/DroneKeychain_.stl'); // <- Return the static template above
-});
-app.get('/stl_viewer.min.js', function (req, res) {
-    res.sendFile(__dirname + '/stl_viewer.min.js'); // <- Return the static template above
-});
-app.get('/three_viewer.min.js', function (req, res) {
-    res.sendFile(__dirname + '/three_viewer.min.js'); // <- Return the static template above
-});
-app.get('/three.min.js', function (req, res) {
-    res.sendFile(__dirname + '/three.min.js'); // <- Return the static template above
-});
-app.get('/webgl_detector.js', function (req, res) {
-    res.sendFile(__dirname + '/webgl_detector.js'); // <- Return the static template above
-});
-app.get('/Projector.js', function (req, res) {
-    res.sendFile(__dirname + '/Projector.js'); // <- Return the static template above
-});
-app.get('/parser.min.js', function (req, res) {
-    res.sendFile(__dirname + '/parser.min.js'); // <- Return the static template above
-});
-app.get('/CanvasRenderer.js', function (req, res) {
-    res.sendFile(__dirname + '/CanvasRenderer.js'); // <- Return the static template above
-});
-app.get('/OrbitControls.js', function (req, res) {
-    res.sendFile(__dirname + '/OrbitControls.js'); // <- Return the static template above
-});
-app.get('/load_stl.min.js', function (req, res) {
-    res.sendFile(__dirname + '/load_stl.min.js'); // <- Return the static template above
-});
-
-
-app.get('/assets/js/jquery.min.js', function (req, res) {
-    res.sendFile(__dirname + '/assets/js/jquery.min.js'); // <- Return the static template above
-});
-app.get('/assets/js/browser.min.js', function (req, res) {
-    res.sendFile(__dirname + '/assets/js/browser.min.js'); // <- Return the static template above
-});
-app.get('/assets/js/breakpoints.min.js', function (req, res) {
-    res.sendFile(__dirname + '/assets/js/breakpoints.min.js'); // <- Return the static template above
-});
-app.get('/assets/js/util.js', function (req, res) {
-    res.sendFile(__dirname + '/assets/js/util.js'); // <- Return the static template above
-});
-app.get('/assets/js/main.js', function (req, res) {
-    res.sendFile(__dirname + '/assets/js/main.js'); // <- Return the static template above
-});
-app.get('/assets/js/index.js', function (req, res) {
-    res.sendFile(__dirname + '/assets/js/index.js'); // <- Return the static template above
-});
-app.get('/node_modules/styled-components/dist/styled-components.js', function (req, res) {
-    res.sendFile(__dirname + '/node_modules/styled-components/dist/styled-components.js'); // <- Return the static template above
-});
-
-app.get('/assets/fonts/FontAwesome.otf', function (req, res) {
-    res.sendFile(__dirname + '/assets/fonts/FontAwesome.otf'); // <- Return the static template above
-});
-app.get('/assets/fonts/fontawesome-webfont.eot', function (req, res) {
-    res.sendFile(__dirname + '/assets/fonts/fontawesome-webfont.eot'); // <- Return the static template above
-});
-app.get('/assets/fonts/fontawesome-webfont.svg', function (req, res) {
-    res.sendFile(__dirname + '/assets/fonts/fontawesome-webfont.svg'); // <- Return the static template above
-});
-app.get('/assets/fonts/fontawesome-webfont.ttf', function (req, res) {
-    res.sendFile(__dirname + '/assets/fonts/fontawesome-webfont.ttf'); // <- Return the static template above
-});
-app.get('/assets/fonts/fontawesome-webfont.woff', function (req, res) {
-    res.sendFile(__dirname + '/assets/fonts/fontawesome-webfont.woff'); // <- Return the static template above
-});
-app.get('/assets/fonts/fontawesome-webfont.woff2', function (req, res) {
-    res.sendFile(__dirname + '/assets/fonts/fontawesome-webfont.woff2'); // <- Return the static template above
-});
-
-app.get('/images/banner.mp4', function (req, res) {
-    res.sendFile(__dirname + '/images/banner.mp4'); // <- Return the static template above
-});
-app.get('/images/banner.jpg', function (req, res) {
-    res.sendFile(__dirname + '/images/banner.jpg'); // <- Return the static template above
-});
-app.get('/images/bg.jpg', function (req, res) {
-    res.sendFile(__dirname + '/assets/js/main.js'); // <- Return the static template above
-});
-app.get('/images/droneFront.png', function (req, res) {
-    res.sendFile(__dirname + '/images/droneFront.png'); // <- Return the static template above
-});
-app.get('/images/droneSide.png', function (req, res) {
-    res.sendFile(__dirname + '/images/droneSide.png'); // <- Return the static template above
-});
-app.get('/images/droneTop.png', function (req, res) {
-    res.sendFile(__dirname + '/images/droneTop.png'); // <- Return the static template above
-});
-app.get('/images/drone3D.png', function (req, res) {
-    res.sendFile(__dirname + '/images/drone3D.png'); // <- Return the static template above
-});
-app.get('/images/drone3D.jpg', function (req, res) {
-    res.sendFile(__dirname + '/images/drone3D.jpg'); // <- Return the static template above
-});
-
-
-
 
 
 var clientId = 0;
