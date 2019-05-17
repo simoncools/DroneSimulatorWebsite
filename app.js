@@ -180,7 +180,7 @@ app.get('/events/', function (req, res) {
 setInterval(function () {
     var msg = (Math.random()*50)-25;
     var msg1 = (Math.random()*50)-25;
-    sendData(msg+" "+msg1 +" 100 200 300 400");
+    sendData(msg+" "+msg1 +" 100 70 60 50 0 0");
 }, 2000);*/
 
 function sendData(data){

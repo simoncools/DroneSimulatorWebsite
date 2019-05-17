@@ -97,10 +97,10 @@
 
 				myMove('droneFrontAnimation',x);
 				myMove('droneSideAnimation',y);
-				document.getElementById('motor1').innerHTML = round(xy[2]*10)/10+"%";
-				document.getElementById('motor2').innerHTML = round(xy[3]*10)/10+"%";
-				document.getElementById('motor3').innerHTML = round(xy[4]*10)/10+"%";
-				document.getElementById('motor4').innerHTML = round(xy[5]*10)/10+"%";
+				document.getElementById('motor1').innerHTML = Math.round(xy[2]*10)/10+"%";
+				document.getElementById('motor2').innerHTML = Math.round(xy[3]*10)/10+"%";
+				document.getElementById('motor3').innerHTML = Math.round(xy[4]*10)/10+"%";
+				document.getElementById('motor4').innerHTML = Math.round(xy[5]*10)/10+"%";
 
 			};
 
