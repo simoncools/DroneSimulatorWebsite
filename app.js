@@ -25,7 +25,7 @@ app.get('/maps.html', function (req, res) {
 app.get('/replay/:option', function (req, res) {
     console.log("replay called");
     if (connected) {
-        client.write("replay");
+        client2.write("replay");
         console.log("start replay");
     }
     res.send('Lol yeet');
@@ -201,7 +201,7 @@ function tryConnect(){
 }
 
 client.on('connect', function(){
-    connected = true;
+    //connected = true;
     console.log('Connected');
 });
 
@@ -218,10 +218,41 @@ client.on('data', function(data) {
 
 client.on('close', function() {
     console.log('Retrying to connect');
-    connected = false;
+    //connected = false;
     setTimeout(tryConnect,5000);
 });
 
 client.on('error', function(e) {
+    console.log('Cannot connect to server');
+});
+
+var client2 = new net.Socket();
+
+function tryConnect2(){
+    client2.connect(1338, '127.0.0.1');
+}
+
+client2.on('connect', function(){
+    connected = true;
+    console.log('Connected');
+});
+
+tryConnect2();
+
+client2.on('data', function(data) {
+    if(data=='kill'){
+        clien2.destroy(); // kill client after server's response
+    }
+    console.log("Sending response")
+    client2.write('k\n');
+});
+
+client2.on('close', function() {
+    console.log('Retrying to connect');
+    connected = false;
+    setTimeout(tryConnect2,5000);
+});
+
+client2.on('error', function(e) {
     console.log('Cannot connect to server');
 });

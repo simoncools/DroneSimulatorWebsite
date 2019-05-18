@@ -63,9 +63,10 @@
 				//document.body.innerHTML += e.data + "<br>";
 				var myData = e.data + '';
 				var xy = myData.split(" ");
+				if(lat!=parseFloat(xy[6])&&long!=parseFloat(xy[7])){
 				lat = parseFloat(xy[6]);
 				long = parseFloat(xy[7]);
-				if(lat!=0) {
+				if(lat!=0&&long!=0) {
 					mymap.setView([lat,long],11);
 					marker.remove();
 					marker = L.marker([lat, long]).addTo(mymap)
@@ -75,6 +76,7 @@
 					marker.remove();
 					marker = L.marker([50.836360, 4.334862]).addTo(mymap)
 					marker.bindPopup("<b>location unknown</b>").openPopup();
+				}
 				}
 			};
 			// Initialize and add the map
