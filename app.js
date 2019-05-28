@@ -151,6 +151,9 @@ app.get('/images/drone3D.png', function (req, res) {
 app.get('/images/drone3D.jpg', function (req, res) {
     res.sendFile(__dirname + '/images/drone3D.jpg'); // <- Return the static template above
 });
+app.get('/images/frame.png', function (req, res) {
+    res.sendFile(__dirname + '/images/frame.png'); // <- Return the static template above
+});
 
 
 
