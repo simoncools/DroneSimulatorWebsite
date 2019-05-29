@@ -25,7 +25,7 @@ app.get('/maps.html', function (req, res) {
 app.get('/replay/:option', function (req, res) {
     console.log("replay called");
     if (connected) {
-        client2.write("replay");
+        client2.write("replay\n");
         console.log("start replay");
     }
     res.send('Lol yeet');
